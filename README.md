@@ -4,6 +4,8 @@
 
 MetaKG is a comprehensive toolkit designed for the construction, analysis, and machine learning tasks associated with knowledge graphs (KGs) in the biomedical domain. This toolkit leverages various resources such as KEGG, HMDB, SMPDB, and others to create an extensive and integrated KG for research purposes.
 
+https://github.com/YuxingLu613/MetaKG/blob/08afd663928899262fa06509a4aa50846ab6d83b/MetaKG%20Figure%201.png
+
 ## Directory Structure
 
 The project structure is organized as follows:
