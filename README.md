@@ -10,10 +10,49 @@ The project structure is organized as follows:
 
 ```
 .
-|____checkpoints
-|____README.md
-|____case_study
 |____main.py
+|____src
+| |___metakg_construction   # construction core
+| | |____merge_database.py
+| | |____Others
+| | |____KEGG
+| | | |____get_module_info.py
+| | | |____get_enzyme_info.py
+| | | |____get_pathway_info.py
+| | | |____get_disease_info.py
+| | | |____kegg_extract.py
+| | | |____get_network_info.py
+| | | |____get_cpd_info.py
+| | | |____get_reaction_info.py
+| | |____ChEBI
+| | | |____get_chebi_resource.py
+| | |____HMDB
+| | | |____hmdb_extract.py
+| | |____PubChem
+| | | |____get_pubchem_resource.py
+| | |____SMPDB
+| | | |____smpdb_metabolite_extract.py
+| | | |____smpdb_protein_extract.py
+| | | |____smpdb_merge.py
+| |____metakg_analysis   # analysis core
+| | |____statistics
+| | | |____summary.py
+| | | |____utils.py
+| | |____visualize
+| | | |____visualize_graph.py
+| | |____search
+| | | |____search.py
+| |____metakg_machine_learning   # machine learning core
+| | |____kge_training_pipeline.py
+| | |____kge_validation.py
+| | |____data_partition.py
+| | |____kge_training.py
+| |____metakg_inference   # inference core
+| | |____predict.py
+| |____utils
+| | |____save_data.py
+| | |____convert_xml_to_json.py
+| | |____load_data.py
 |____data
 | |____kge_training
 | | |____TestSet.txt
@@ -44,57 +83,9 @@ The project structure is organized as follows:
 |____outputs
 | |____look_backward.json
 | |____statistics.json
-|____src
-| |____metakg_inference   # inference core
-| | |____predict.py
-| |______init__.py
-| |____utils
-| | |____save_data.py
-| | |______init__.py
-| | |____convert_xml_to_json.py
-| | |____load_data.py
-| |____metakg_analysis   # analysis core
-| | |____statistics
-| | | |______init__.py
-| | | |____summary.py
-| | | |____utils.py
-| | |______init__.py
-| | |____visualize
-| | | |____visualize_graph.py
-| | |____search
-| | | |______init__.py
-| | | |____search.py
-| |____metakg_machine_learning   # machine learning core
-| | |____kge_training_pipeline.py
-| | |____kge_validation.py
-| | |____data_partition.py
-| | |______init__.py
-| | |____kge_training.py
-| |___metakg_construction   # construction core
-| | |____merge_database.py
-| | |______init__.py
-| | |____Others
-| | |____KEGG
-| | | |____get_module_info.py
-| | | |____get_enzyme_info.py
-| | | |____get_pathway_info.py
-| | | |____get_disease_info.py
-| | | |______init__.py
-| | | |____kegg_extract.py
-| | | |____get_network_info.py
-| | | |____get_cpd_info.py
-| | | |____get_reaction_info.py
-| | |____ChEBI
-| | | |____get_chebi_resource.py
-| | |____HMDB
-| | | |______init__.py
-| | | |____hmdb_extract.py
-| | |____PubChem
-| | | |____get_pubchem_resource.py
-| | |____SMPDB
-| | | |____smpdb_metabolite_extract.py
-| | | |____smpdb_protein_extract.py
-| | | |____smpdb_merge.py
+|____checkpoints
+|____README.md
+|____case_study
 ```
 
 ## Components
