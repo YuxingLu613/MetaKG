@@ -23,40 +23,23 @@ The project structure is organized as follows:
 | | |____TrainingSet.txt
 | | |____ValidationSet.txt
 | |____resource
-| | |____KEGG
-| | | |____orthology
-| | | |____reaction
-| | | |____rclass
-| | | |____disease
-| | | |____brite
-| | | |____module
-| | | |____network
-| | | |____enzyme
-| | | |____compound
-| | | |____pathway
-| | | |____drug
-| | | |____genome
-| | | |____glycan
-| | |____HMDB
+| | |____KEGG   # KEGG resources, you can get the web-crawled data from 
+| | |____HMDB   # HMDB resources, you can get from https://hmdb.ca/downloads
 | | | |____hmdb_metabolites.xml
 | | | |____hmdb_metabolites.json
-| | |____SMPDB
+| | |____SMPDB  # SMPDB resources, you can get from https://www.smpdb.ca/downloads
 | | | |____smpdb_metabolites
 | | | |____smpdb_proteins
 | |____extract_data
-| | |____metakg_triples.csv
+| | |____metakg_triples.csv   # triples in MetaKG Library
+| | |____metakg_entities.csv  # entities in MetaKG Library
 | | |____KEGG
 | | | |____kegg_triples.csv
 | | | |____kegg_entities.csv
 | | | |____kegg_preprocessed
-| | |____ChEBI
 | | |____HMDB
 | | | |____hmdb_triples.csv
 | | | |____hmdb_entities.csv
-| | |____PubChem
-| | | |____pubchem_entities.csv
-| | | |____pubchem_triples.csv
-| | |____metakg_entities.csv
 | | |____SMPDB
 | | | |____smpdb_entities.csv
 | | | |____smpdb_triples.csv
@@ -64,7 +47,7 @@ The project structure is organized as follows:
 | |____look_backward.json
 | |____statistics.json
 |____src
-| |____metakg_inference
+| |____metakg_inference   # inference core
 | | |____predict.py
 | |______init__.py
 | |____utils
@@ -72,7 +55,7 @@ The project structure is organized as follows:
 | | |______init__.py
 | | |____convert_xml_to_json.py
 | | |____load_data.py
-| |____metakg_analysis
+| |____metakg_analysis   # analysis core
 | | |____statistics
 | | | |______init__.py
 | | | |____summary.py
@@ -83,13 +66,13 @@ The project structure is organized as follows:
 | | |____search
 | | | |______init__.py
 | | | |____search.py
-| |____metakg_machine_learning
+| |____**metakg_machine_learning**   # machine learning core
 | | |____kge_training_pipeline.py
 | | |____kge_validation.py
 | | |____data_partition.py
 | | |______init__.py
 | | |____kge_training.py
-| |____metakg_construction
+| |___**_metakg_construction**   # construction core
 | | |____merge_database.py
 | | |______init__.py
 | | |____Others
