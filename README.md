@@ -1,7 +1,14 @@
 # MetaKG
 
+## Overview
 
-## Structure
+MetaKG is a comprehensive toolkit designed for the construction, analysis, and machine learning tasks associated with knowledge graphs (KGs) in the biomedical domain. This toolkit leverages various resources such as KEGG, HMDB, SMPDB, and others to create an extensive and integrated KG for research purposes.
+
+## Directory Structure
+
+The project structure is organized as follows:
+
+```
 .
 |____checkpoints
 |____README.md
@@ -86,10 +93,9 @@
 | | |____Others
 | | |____KEGG
 | | | |____get_module_info.py
-| | | |____.get_enzyme_info.py.swp
+| | | |____get_enzyme_info.py
 | | | |____get_pathway_info.py
 | | | |____get_disease_info.py
-| | | |____get_enzyme_info.py
 | | | |______init__.py
 | | | |____kegg_extract.py
 | | | |____get_network_info.py
@@ -106,3 +112,35 @@
 | | | |____smpdb_metabolite_extract.py
 | | | |____smpdb_protein_extract.py
 | | | |____smpdb_merge.py
+```
+
+## Components
+
+### Data
+
+- kge_training: Contains the training, validation, and test sets for knowledge graph embedding (KGE) training.
+- resource: Holds various biomedical databases (KEGG, HMDB, SMPDB) with different categories of data (e.g., metabolites, proteins, enzymes).
+- extract_data: Contains preprocessed data and entity/triple files for different databases, ready for KG construction.
+
+### Source Code
+
+- src/metakg_inference: Scripts for making predictions using the knowledge graph.
+- src/utils: Utility scripts for data conversion, loading, and saving.
+- src/metakg_analysis: Tools for analyzing the knowledge graph, including statistics computation and visualization.
+- src/metakg_machine_learning: Scripts for training, validating, and partitioning data for machine learning models on the KG.
+- src/metakg_construction: Scripts for extracting and merging data from different databases to construct the knowledge graph.
+
+### Miscellaneous
+
+- checkpoints: Directory for storing model checkpoints during training.
+- case_study: Contains specific case studies or examples of how the MetaKG can be applied.
+
+- main.py: The main script to run the project.
+
+## Getting Started
+
+	1.	Install Dependencies: Ensure all necessary Python packages are installed.
+	2.	Prepare Data: Place raw data files in the appropriate directories under data/resource.
+	3.	Run Data Extraction: Use the scripts in src/metakg_construction to extract and preprocess data.
+	4.	Train Models: Utilize the training pipeline in src/metakg_machine_learning to train KGE models.
+	5.	Analyze and Infer: Use the analysis and inference scripts to evaluate the knowledge graph and make predictions.
