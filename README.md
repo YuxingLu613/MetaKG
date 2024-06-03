@@ -139,8 +139,8 @@ The project structure is organized as follows:
 
 ## Getting Started
 
-	1.	Install Dependencies: Ensure all necessary Python packages are installed.
-	2.	Prepare Data: Place raw data files in the appropriate directories under data/resource.
-	3.	Run Data Extraction: Use the scripts in src/metakg_construction to extract and preprocess data.
-	4.	Train Models: Utilize the training pipeline in src/metakg_machine_learning to train KGE models.
-	5.	Analyze and Infer: Use the analysis and inference scripts to evaluate the knowledge graph and make predictions.
+1. Install Dependencies: Ensure all necessary Python packages are installed.
+2. Prepare Data: Place raw data files in the appropriate directories under data/resource.
+3. Run Data Extraction: Use the scripts in src/metakg_construction to extract and preprocess data.
+4. Train Models: Utilize the training pipeline in src/metakg_machine_learning to train KGE models.
+5. Analyze and Infer: Use the analysis and inference scripts to evaluate the knowledge graph and make predictions.
