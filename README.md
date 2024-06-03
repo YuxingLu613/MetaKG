@@ -66,13 +66,13 @@ The project structure is organized as follows:
 | | |____search
 | | | |______init__.py
 | | | |____search.py
-| |____**metakg_machine_learning**   # machine learning core
+| |____metakg_machine_learning   # machine learning core
 | | |____kge_training_pipeline.py
 | | |____kge_validation.py
 | | |____data_partition.py
 | | |______init__.py
 | | |____kge_training.py
-| |___**_metakg_construction**   # construction core
+| |___metakg_construction   # construction core
 | | |____merge_database.py
 | | |______init__.py
 | | |____Others
