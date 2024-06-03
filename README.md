@@ -1,4 +1,4 @@
-<img width="396" alt="image" src="https://github.com/YuxingLu613/MetaKG/assets/43573050/f4666a44-1c96-4cf1-b63b-79948ebb2d82"># MetaKG
+# MetaKG
 
 
 ## Structure
@@ -20,7 +20,6 @@
 | | | |____rclass
 | | | |____disease
 | | | |____brite
-| | | |____.DS_Store
 | | | |____module
 | | | |____network
 | | | |____enzyme
