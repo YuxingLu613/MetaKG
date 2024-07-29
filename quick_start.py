@@ -46,7 +46,7 @@ training_results=kge_training_pipeline.trainging_pipeline(model_name="RotatE",
                                                           loss="marginranking",
                                                           embedding_dim=128,
                                                           lr=1.0e-3,
-                                                          num_epochs=1,
+                                                          num_epochs=2000,
                                                           batch_size=16384)
 
 
