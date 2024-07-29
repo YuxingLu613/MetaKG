@@ -92,7 +92,7 @@ The project structure is organized as follows:
 
 ### Data
 
-All data can be accessed after approval at https://drive.google.com/drive/folders/1TiUtBCG4e2rJ7WIBf_NZ6En8VLbw2aoY?usp=sharing.
+All data can be accessed at https://drive.google.com/drive/folders/1TiUtBCG4e2rJ7WIBf_NZ6En8VLbw2aoY?usp=sharing.
 
 - kge_training: Contains the training, validation, and test sets for knowledge graph embedding (KGE) training.
 - resource: Holds various biomedical databases (KEGG, HMDB, SMPDB) with different categories of data (e.g., metabolites, proteins, enzymes).
