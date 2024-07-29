@@ -39,12 +39,12 @@ def link_prediction(model,triple_factor_data_train,head=None,relation=None,tail=
 
 def predict(model, head=None, relation=None, tail=None, show_num=3):
 
-    model=torch.load(f"/Users/colton/metakg-ori/checkpoints/{model}/trained_model.pkl",map_location=torch.device('cpu'))
+    model=torch.load(f"./checkpoints/{model}/trained_model.pkl",map_location=torch.device('cpu'))
 
-    if os.path.exists(f"/Users/colton/metakg-ori/data/RotatE/triple/test_triples/base.pth"):
-        triple_factor_data_train=TriplesFactory.from_path_binary(f"/Users/colton/metakg-ori/data/RotatE/triple/test_triples")
-        triple_factor_data_val=TriplesFactory.from_path_binary(f"/Users/colton/metakg-ori/data/RotatE/triple/val_triples")
-        triple_factor_data_test=TriplesFactory.from_path_binary(f"/Users/colton/metakg-ori/data/RotatE/triple/test_triples")
+    if os.path.exists(f"./data/kge_training/RotatE/triple/test_triples/base.pth"):
+        triple_factor_data_train=TriplesFactory.from_path_binary(f"./data/kge_training/RotatE/triple/test_triples")
+        triple_factor_data_val=TriplesFactory.from_path_binary(f"./data/kge_training/RotatE/triple/val_triples")
+        triple_factor_data_test=TriplesFactory.from_path_binary(f"./data/kge_training/RotatE/triple/test_triples")
         
 
     result=link_prediction(model,triple_factor_data_train,head,relation,tail,show_num)
