@@ -11,6 +11,7 @@ from src.metakg_analysis.statistics import summary
 from src.metakg_analysis.search import search
 from src.metakg_analysis.visualize import visualize_graph
 from src.metakg_machine_learning import data_partition,kge_training_pipeline
+from src.metakg_inference.predict import predict
 
 
 # Stage 1 MetaKG Library: Extract data from metabolome KGs, MetaKG Library construction
@@ -66,7 +67,7 @@ metakg_library_triples=load_triples("data/extract_data/metakg_triples.csv")
 # Application: MetaKG analysis
 # You can refer to src/metakg_analysis or case_study/ for more examples
 
-summary.summary(metakg_library_triples,show_bar_graph=False,save_result=True,topk=100)
+summary.summary(metakg_library_triples,show_bar_graph=False,save_result=True,topk=20)
 search.search_backward(metakg_library_triples,["disease:Nonalcoholic fatty liver disease"],["has_disease"],save_results=True,show_only=100)
 
 
@@ -86,9 +87,11 @@ training_results=kge_training_pipeline.trainging_pipeline(model_name="RotatE",
                                                           embedding_dim=128,
                                                           lr=1.0e-3,
                                                           num_epochs=1000,
-                                                          batch_size=16384)
+                                                          batch_size=1024)
 
 
 # Application: MetaKG Inference
 # We will continuelly update applications using MetaKG and MetaKGE
 # You can refer to src/metakg_inference or case_study/ for more examples
+
+predict(model="RotatE",head="hmdb_id:HMDB0000001",relation="has_disease",tail=None,show_num=3)

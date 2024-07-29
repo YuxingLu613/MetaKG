@@ -25,7 +25,7 @@ def summary(triples, show_bar_graph=True, save_result=False, topk=20):
     statistics = {}
 
     G = nx.Graph()
-    for h, r, t in tqdm(triples.values.tolist()):
+    for h, r, t in tqdm(triples.values.tolist(),desc="Building Graph"):
         G.add_edge(h, t, relation=r)
 
     num_nodes = G.number_of_nodes()
@@ -43,12 +43,12 @@ def summary(triples, show_bar_graph=True, save_result=False, topk=20):
     statistics[f"Top {topk} Head Entities"] = sorted(head_counter.items(), key=lambda x: x[1], reverse=True)[:topk]
     statistics[f"Top {topk} Tail Entities"] = sorted(tail_counter.items(), key=lambda x: x[1], reverse=True)[:topk]
 
-    # 稀疏度计算
+    # Sparsity calculation
     sparsity = nx.density(G)
     print("Sparsity:", sparsity)
     statistics["Sparsity"] = sparsity
 
-    # 连通性分析
+    # Connectivity analysis
     connected_components = list(nx.connected_components(G))
     num_connected_components = len(connected_components)
     largest_component = max(connected_components, key=len)
