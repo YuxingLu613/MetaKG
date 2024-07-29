@@ -137,7 +137,7 @@ MetaKG Library is stored in the format of triples, all the analysis & statistics
 
 ### Step-5: Inference from checkpoint
 
-After the MetaKGE training in **Step-4*, the pre-trained MetaKGE vectors are stored in `metakg/checkpoints/` folder. Use the `predict` function in `main.py` for custom inference tasks.
+After the MetaKGE training in **Step-4**, the pre-trained MetaKGE vectors are stored in `metakg/checkpoints/` folder. Use the `predict` function in `main.py` for custom inference tasks.
 
 
 
