@@ -71,7 +71,7 @@ To bypass **Steps 1 and 2** and directly explore MetaKG's inference capabilities
 
 1. Download the pre-trained MetaKGE vectors from Google Drive. 
 
-- RotatE.zip: https://drive.google.com/file/d/1Y4UUoK0N0PLspAMEDqU_3TSLc36urYC7/view?usp=drive_link
+- RotatE.zip: https://drive.google.com/file/d/1rJYrTUC5IQzdHGLWzMXpKlus7VYyKCnE/view?usp=drive_link
 
 - Extract this .zip file to `metakg/checkpoints/` folder.
 

@@ -94,4 +94,4 @@ training_results=kge_training_pipeline.trainging_pipeline(model_name="RotatE",
 # We will continuelly update applications using MetaKG and MetaKGE
 # You can refer to src/metakg_inference or case_study/ for more examples
 
-predict(model="RotatE",head="hmdb_id:HMDB0000001",relation="has_disease",tail=None,show_num=3)
+predict(model_name="RotatE",head="hmdb_id:HMDB0000001",relation="has_disease",tail=None,show_num=3)

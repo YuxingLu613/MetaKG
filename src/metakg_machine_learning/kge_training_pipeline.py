@@ -12,10 +12,10 @@ from .kge_training import save_id_mapping,construct_triples
 
 def trainging_pipeline(model_name, loss="marginranking",embedding_dim=128,lr=1.0e-3,num_epochs=1000,batch_size=16384):
     set_random_seed(42)
-    if os.path.exists(f"data/kge_training/{model_name}/triple/train_triples/base.pth"):
-        triple_factor_data_train=TriplesFactory.from_path_binary(f"data/kge_training/{model_name}/triple/train_triples")
-        triple_factor_data_vld=TriplesFactory.from_path_binary(f"data/kge_training/{model_name}/triple/val_triples")
-        triple_factor_data_tst=TriplesFactory.from_path_binary(f"data/kge_training/{model_name}/triple/test_triples")
+    if os.path.exists(f"checkpoints/{model_name}/data/triple/train_triples/base.pth"):
+        triple_factor_data_train=TriplesFactory.from_path_binary(f"checkpoints/{model_name}/data/triple/train_triples")
+        triple_factor_data_vld=TriplesFactory.from_path_binary(f"checkpoints/{model_name}/data/triple/val_triples")
+        triple_factor_data_tst=TriplesFactory.from_path_binary(f"checkpoints/{model_name}/data/triple/test_triples")
     else:
         triple_factor_data_train,triple_factor_data_vld,triple_factor_data_tst,triple_factor_data=construct_triples(model_name=model_name)
         save_id_mapping(model_name=model_name)
@@ -35,7 +35,7 @@ def trainging_pipeline(model_name, loss="marginranking",embedding_dim=128,lr=1.0
         training_kwargs=dict(num_epochs=num_epochs,
                              use_tqdm_batch=True,
                              batch_size=batch_size),
-        evaluation_kwargs=dict(use_tqdm=True),
+        evaluation_kwargs=dict(use_tqdm=True,batch_size=batch_size),
         random_seed=42,
         device=device,
     )
@@ -44,8 +44,6 @@ def trainging_pipeline(model_name, loss="marginranking",embedding_dim=128,lr=1.0
 
     if not os.path.exists(f"checkpoints/{model_name}"):
         os.mkdir(f"checkpoints/{model_name}")
-    if not os.path.exists(f"data/kge_training/{model_name}"):
-        os.mkdir(f"data/kge_training/{model_name}")
 
     results.save_to_directory(f"checkpoints/{model_name}",save_metadata=True,save_replicates=True,save_training=True)
     print(f"model saved to checkpoints/{model_name}")
@@ -54,9 +52,9 @@ def trainging_pipeline(model_name, loss="marginranking",embedding_dim=128,lr=1.0
     np.save(f"checkpoints/{model_name}/Relation_Embedding.npy",results.model.relation_representations[0]._embeddings.weight.data.cpu().numpy())
     print(f"relation embedding saved to checkpoints/{model_name}/Relation_Embedding.npy")
 
-    with open(f"data/kge_training/{model_name}/entity_to_id.json","r") as f:
+    with open(f"checkpoints/{model_name}/data/entity_to_id.json","r") as f:
         entity_to_id=json.load(f)
-    with open(f"data/kge_training/{model_name}/id_to_entity.json","r") as f:
+    with open(f"checkpoints/{model_name}/data/id_to_entity.json","r") as f:
         id_to_entity=json.load(f)
     
     HMDBs=[i for i in entity_to_id.keys() if "HMDB" in i]

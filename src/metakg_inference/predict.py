@@ -34,19 +34,24 @@ def link_prediction(model,triple_factor_data_train,head=None,relation=None,tail=
             head=head,
             triples_factory=triple_factor_data_train,
         )
-    return predicted_result.df[:show_num]
+    predicted_result=predicted_result.df.iloc[:,1:]
+    predicted_result.columns=["score","target"]
+    predicted_result.reset_index(inplace=True)
+    return predicted_result[["target","score"]][:show_num]
 
 
-def predict(model, head=None, relation=None, tail=None, show_num=3):
+def predict(model_name, head=None, relation=None, tail=None, show_num=3):
 
-    model=torch.load(f"./checkpoints/{model}/trained_model.pkl",map_location=torch.device('cpu'))
+    model=torch.load(f"./checkpoints/{model_name}/trained_model.pkl",map_location=torch.device('cpu'))
 
-    if os.path.exists(f"./data/kge_training/RotatE/triple/test_triples/base.pth"):
-        triple_factor_data_train=TriplesFactory.from_path_binary(f"./data/kge_training/RotatE/triple/test_triples")
-        triple_factor_data_val=TriplesFactory.from_path_binary(f"./data/kge_training/RotatE/triple/val_triples")
-        triple_factor_data_test=TriplesFactory.from_path_binary(f"./data/kge_training/RotatE/triple/test_triples")
-        
-
+    if os.path.exists(f"checkpoints/{model_name}/data/triple/test_triples/base.pth"):
+        triple_factor_data_train=TriplesFactory.from_path_binary(f"checkpoints/{model_name}/data/triple/test_triples")
+        triple_factor_data_val=TriplesFactory.from_path_binary(f"checkpoints/{model_name}/data/triple/val_triples")
+        triple_factor_data_test=TriplesFactory.from_path_binary(f"checkpoints/{model_name}/data/triple/test_triples")
+    else:
+        print("No triples found, please train the model first")
+        return None
+    
     result=link_prediction(model,triple_factor_data_train,head,relation,tail,show_num)
     print(result)
     return result
