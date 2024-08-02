@@ -88,7 +88,6 @@ This will generate inference results based on the pre-trained model.
 ---
 
 
-
 ## Full version
 
 ### Step-1: Download HMDB resources
