@@ -3,7 +3,7 @@
 > 🧬 Bridging the gap between metabolomics databases through the power of knowledge graphs
 
 [![GitHub issues](https://img.shields.io/github/issues/YuxingLu613/MetaKG)](https://github.com/YuxingLu613/MetaKG/issues)
-[![GitHub license](https://img.shields.io/github/license/YuxingLu613/MetaKG)](https://github.com/YuxingLu613/MetaKG/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/YuxingLu613/MetaKG)](https://github.com/YuxingLu613/MetaKG/blob/main/LICENSE)
 [![GitHub last commit](https://img.shields.io/github/last-commit/YuxingLu613/MetaKG)](https://github.com/YuxingLu613/MetaKG/commits/main)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/YuxingLu613/MetaKG)](https://github.com/YuxingLu613/MetaKG/pulls)
 
