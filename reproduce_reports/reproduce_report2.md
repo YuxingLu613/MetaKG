@@ -1,5 +1,4 @@
-# MetaKG: An In-Depth Guide to Building Metabolic Knowledge Graphs
-**Author:** GXR | **Last Updated:** November 4th, 2024
+# MetaKG Reproduce Report - GXR - 2024/11/04
 
 ---
 
