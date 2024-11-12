@@ -15,7 +15,7 @@ def get_disease_info():
     for disease_id,disease_name in list(zip(disease_id_list,disease_name_list)):
         entities.add(("Disease","Root"))
         entities.add(("disease_id:"+disease_id,"Disease"))
-        triples.add(("disease_id:"+disease_id,"is a","Disease"))
+        triples.add(("disease_id:"+disease_id,"is_a","Disease"))
         try:
             disease_parse_result=k.parse(k.get(disease_id))
             if "REFERENCE" in disease_parse_result:
@@ -23,7 +23,7 @@ def get_disease_info():
                     if "REFERENCE" in reference.keys() and "PMID" in reference["REFERENCE"]:
                         reference=reference["REFERENCE"][reference["REFERENCE"].index("PMID")+5:]
                         entities.add(("Reference","Root"))
-                        triples.add(("pubmed_id:"+reference,"is a","Reference"))
+                        triples.add(("pubmed_id:"+reference,"is_a","Reference"))
                         entities.add(("pubmed_id:"+reference,"Reference"))
                         triples.add(("disease_id:"+disease_id,"has_reference","pubmed_id:"+reference))
             if "DRUG" in disease_parse_result:
@@ -31,7 +31,7 @@ def get_disease_info():
                     drug_id=drug_id.split(":")[-1][:-1]
                     entities.add(("Drug","Root"))
                     entities.add(("drug_id:"+drug_id,"Drug"))
-                    triples.add(("drug_id:"+drug_id,"is a","Drug"))
+                    triples.add(("drug_id:"+drug_id,"is_a","Drug"))
                     triples.add(("disease_id:"+disease_id,"has_drug","disease_id:"+drug_id))
         except Exception as e:
             traceback.print_exc()

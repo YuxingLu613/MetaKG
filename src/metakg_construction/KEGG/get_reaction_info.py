@@ -15,19 +15,19 @@ def get_reaction_info():
     reactions_name_list = [reaction.split("\t")[1] for reaction in reaction_list]
     for reaction in tqdm(reactions_id_list):
         entities.add(("Reaction","Root"))
-        triples.add(("reaction_id:"+reaction,"is a","Reaction"))
+        triples.add(("reaction_id:"+reaction,"is_a","Reaction"))
         try:
             reaction_parse_result=k.parse(k.get(reaction))
             if "PATHWAY" in reaction_parse_result:
                 for pathway_id,pathway_name in reaction_parse_result["PATHWAY"].items():
                     entities.add(("Pathway","Root"))
-                    triples.add(("pathway_id:"+pathway_id,"is a","Pathway"))
+                    triples.add(("pathway_id:"+pathway_id,"is_a","Pathway"))
                     entities.add(("pathway_id:"+pathway_id,"Pathway"))
                     triples.add(("reaction_id:"+reaction,"has_pathway","pathway_id:"+pathway_id))
             if "ENZYME" in reaction_parse_result:
                 for enzyme in reaction_parse_result["ENZYME"]:
                     entities.add(("Enzyme","Root"))
-                    triples.add(("enzyme_id:"+enzyme,"is a","Enzyme"))
+                    triples.add(("enzyme_id:"+enzyme,"is_a","Enzyme"))
                     entities.add(("enzyme_id:"+enzyme,"Enzyme"))
                     triples.add(("reaction_id:"+reaction,"has_enzyme","enzyme_id:"+enzyme))
             if "EQUATION" in reaction_parse_result:
@@ -36,7 +36,7 @@ def get_reaction_info():
                         continue
                     equation=equation[equation.index("C"):(equation.index("C")+6)]
                     entities.add(("Compound","Root"))
-                    triples.add(("compound_id:"+equation,"is a","Compound"))
+                    triples.add(("compound_id:"+equation,"is_a","Compound"))
                     entities.add(("compound_id:"+equation,"Compound"))
                     triples.add(("compound_id:"+equation,"has_reaction","reaction_id:"+reaction))
             if "RCLASS" in reaction_parse_result:
@@ -45,19 +45,19 @@ def get_reaction_info():
                         continue
                     rclasses=rclasses[rclasses.index("R"):(rclasses.index("R")+6)]
                     entities.add(("Reaction","Root"))
-                    triples.add(("reaction_id:"+rclasses,"is a","Reaction"))
+                    triples.add(("reaction_id:"+rclasses,"is_a","Reaction"))
                     entities.add(("reaction_id:"+rclasses,"Reaction"))
                     triples.add(("reaction_id:"+reaction,"belongs_to_reaction_class","reaction_id:"+rclasses))
             if "MODULE" in reaction_parse_result:
                 for module_id,module_name in reaction_parse_result["MODULE"].items():
                     entities.add(("Module","Root"))
-                    triples.add(("module_id:"+module_id,"is a","Module"))
+                    triples.add(("module_id:"+module_id,"is_a","Module"))
                     entities.add(("module_id:"+module_id,"Module"))
                     triples.add(("reaction_id:"+reaction,"has_module","module_id:"+module_id))
             if "ORTHOLOGY" in reaction_parse_result:
                 for orthology_id,orthology_name in reaction_parse_result["ORTHOLOGY"].items():
                     entities.add(("Orthology","Root"))
-                    triples.add(("orthology_id:"+orthology_id,"is a","Orthology"))
+                    triples.add(("orthology_id:"+orthology_id,"is_a","Orthology"))
                     entities.add(("orthology_id:"+orthology_id,"Orthology"))
                     triples.add(("reaction_id:"+reaction,"belongs_to_orthology","orthology_id:"+orthology_id))
         except Exception as e:
