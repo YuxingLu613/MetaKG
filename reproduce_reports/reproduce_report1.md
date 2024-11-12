@@ -1,160 +1,195 @@
 # MetaKG Reproduce Report - LYX - 2024/07/29
 
----
+## Overview
+MetaKG is a knowledge graph framework integrating metabolomics data from multiple databases (HMDB, SMPDB, KEGG). This guide covers setup, implementation, and usage of both basic and advanced features.
 
-## Step-0: Create Environment & Install Dependencies
+## Prerequisites
 
-1. Clone MetaKG repository
+### Hardware Requirements
+- CUDA-compatible GPU (recommended)
+- RAM: 16GB minimum, 32GB recommended 
+- Storage: 50GB free space
 
+### Software Requirements
 ```bash
-git clone https://github.com/YuxingLu613/MetaKG.git
+# Core dependencies
+python==3.8
+pandas==2.0.3
+pykeen==1.10.2
+bioservices==1.11.2
+networkx==3.1
+torch==1.9.0
 ```
 
-2. (Optional) Create and activate a dedicated Conda environment:
+## Implementation Guide
 
-```bash
-conda create -n metakg python==3.8
-conda activate metakg
-```
+### 1. Data Processing Pipeline
 
-3. Install dependencies from `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
-```
-
-Key Dependencies:
-
+#### Data Extraction
 ```python
-pandas 2.0.3
-pykeen 1.10.2
-bioservices 1.11.2
-networkx 3.1
-tqdm 4.66.4
+# Extract HMDB data
+hmdb_entities, hmdb_triples = extract_hmdb_data(
+    file_path="data/resource/HMDB/hmdb_metabolites.json"
+)
+
+# Extract SMPDB data
+metabolite_entities, metabolite_triples = extract_smpdb_metabolite_data()
+protein_entities, protein_triples = extract_smpdb_protein_data()
+
+# Extract KEGG data
+kegg_entities, kegg_triples = extract_kegg_data()
 ```
 
----
 
+### 2. Knowledge Graph Embedding
 
+#### Available Models
+**Model Categories:**
+- Translational: TransE, TransD, TransH, TransR
+- Complex: RotatE, ComplEx
+- Convolutional: ConvE, ConvKB
+- Multiplicative: DistMult, SimplE
+- Graph Neural Network: R-GCN, NodePiece
+- Other: And more...
 
-## Quick start version (Full version is below)
-
-### Step-1: Download MetaKG resources
-
-Download MetaKG entities and MetaKG triples from Google Drive and replace them with current `metakg/data/extract_data/metakg_entities.csv` and `metakg/data/extract_data/metakg_triples.csv`.
-
-- metakg_entities.csv: https://drive.google.com/file/d/191pXoQ4wl8GHj8sUzrHCHuVaobWUG5YQ/view?usp=drive_link
-
-- metakg_triples.csv: https://drive.google.com/file/d/1Lq1oDkKhYQSumArl3SOQd6TtNOSW9u1e/view?usp=drive_link
-
-
-
-### Step-2: KG construction & training
-
-Run `quick_start.py` to construct MetaKG and train MetaKGE. (GPU is highly recommended)
-```bash
-python quick_start.py
-```
-MetaKG Library is stored in the format of triples, all the analysis & statistics results will be stored in `metakg/outputs/`.
-
-**Note:** Parameters should be adjusted based on your hardware. For example, using a single Nvidia A100 GPU, setting `batch_size` to 16384 will take approximately 1 minute per epoch, or about 1 day for full training.
-
-
-
-### Step-3: Inference from checkpoint
-
-After the MetaKGE training in **Step-2**, the pre-trained MetaKGE vectors are stored in `metakg/checkpoints/` folder. Use the `predict` function in `quick_start.py` for custom inference tasks.
-
-
-
-To bypass **Steps 1 and 2** and directly explore MetaKG's inference capabilities:
-
-1. Download the pre-trained MetaKGE vectors from Google Drive. 
-
-- RotatE.zip: https://drive.google.com/file/d/1rJYrTUC5IQzdHGLWzMXpKlus7VYyKCnE/view?usp=drive_link
-
-- Extract this .zip file to `metakg/checkpoints/` folder.
-
-- Modify `quick_start.py`: 
-  - Comment out all lines except line 57.
-- Run the modified script:
-
-```bash
-python quick_start.py
+#### Training Pipeline
+```python
+def training_pipeline(model_name, **kwargs):
+    # Initialize model and data
+    triple_factor_data = construct_triples(model_name)
+    
+    # Training setup
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    # Execute pipeline
+    results = pipeline(
+        training=triple_factor_data_train,
+        validation=triple_factor_data_val,
+        testing=triple_factor_data_test,
+        model=model_name,
+        device=device,
+        **kwargs
+    )
+    
+    # Save results
+    save_model_artifacts(results, model_name)
+    
+    return results
 ```
 
-This will generate inference results based on the pre-trained model.
+### 3. Inference and Analysis
 
----
-
-
-## Full version
-
-### Step-1: Download HMDB resources
-
-Download `hmdb_metabolites.json.zip` from Google Drive and unzip to `metakg/data/resource/HMDB/hmdb_metabolites.json`.
-
-- hmdb_metabolites.json.zip: https://drive.google.com/file/d/1mWLCa1LFNIxoNTn9Sr05m7RoY-VPcsdv/view?usp=drive_link
-
-or you can download `HMDB.zip` from Google Drive and unzip to `metakg/data/extract_data/HMDB`.
-
-- HMDB.zip: https://drive.google.com/file/d/1_Wb9m6Yn6hFx4Vsd4ui0zTIRWWfpDiid/view?usp=drive_link
-
-### Step-2: Download SMPDB resources
-
-Download `smpdb_metabolites.csv.zip`, `smpdb_pathways.csv.zip`  and `smpdb_proteins.csv.zip`from Google Drive and unzip to `metakg/data/resource/SMPDB/`.
-
-- smpdb_metabolites.csv.zip: https://drive.google.com/file/d/1JCnMi_wkBws9RI9b2xVhJDvBL4RQQX2s/view?usp=drive_link
-- smpdb_pathways.csv.zip: https://drive.google.com/file/d/1P3iCsnkwMKMvlq-0KRMTzAXkSEqM-cBv/view?usp=drive_link
-- smpdb_proteins.csv.zip: https://drive.google.com/file/d/1PGuDwMlpDoE1zWVQ_Ws8Q-DrBLxFQUmI/view?usp=drive_link
-
-or you can download `SMPDB.zip` from Google Drive and unzip to `metakg/data/extract_data/HMDB`.
-
-- SMPDB.zip: https://drive.google.com/file/d/1PPcb7yIHBgKgz8swbpFhuCKu3b6GTdWE/view?usp=drive_link
-
-### Step-3: Download KEGG resources
-
-Download `KEGG.zip` from Google Drive and unzip to `metakg/data/extract_data/KEGG/kegg_preprocessed`.
-
-- KEGG_preprocessed.zip: https://drive.google.com/file/d/1m-QS3HjGr17-3SuYlvvHreSCTDNkNKy9/view?usp=drive_link
-
-or you can download `KEGG.zip` from Google Drive and unzip to `metakg/data/extract_data/KEGG`.
-
-- KEGG.zip: https://drive.google.com/file/d/1TCobU-I9nxvCvYBL2achFv9RqhrzRYUo/view?usp=drive_link
-
-### Step-4: KG construction & training
-
-Run `main.py` to construct MetaKG and train MetaKGE. (GPU is highly recommended)
-
-```bash
-python main.py
+#### Link Prediction
+```python
+def predict(model_name, head=None, relation=None, tail=None, show_num=3):
+    """
+    Predict missing entities in a triple.
+    
+    Args:
+        model_name: Name of the trained model
+        head: Head entity (optional)
+        relation: Relation type (optional)
+        tail: Tail entity (optional)
+        show_num: Number of predictions to show
+    
+    Returns:
+        DataFrame with predictions and scores
+    """
 ```
 
-MetaKG Library is stored in the format of triples, all the analysis & statistics results will be stored in `metakg/outputs/`.
+#### Statistical Analysis
+```python
+# Generate KG statistics
+summary(metakg_library_triples, 
+        show_bar_graph=False, 
+        save_result=True, 
+        topk=20)
 
-**Note:** Parameters should be adjusted based on your hardware. For example, using a single Nvidia A100 GPU, setting `batch_size` to 16384 will take approximately 1 minute per epoch, or about 1 day for full training.
-
-### Step-5: Inference from checkpoint
-
-After the MetaKGE training in **Step-4**, the pre-trained MetaKGE vectors are stored in `metakg/checkpoints/` folder. Use the `predict` function in `main.py` for custom inference tasks.
-
-
-
-To bypass **Steps 1-4** and directly explore MetaKG's inference capabilities:
-
-1. Download the pre-trained MetaKGE vectors from Google Drive. 
-
-- RotatE.zip: https://drive.google.com/file/d/1rJYrTUC5IQzdHGLWzMXpKlus7VYyKCnE/view?usp=drive_link
-
-- Extract this .zip file to `metakg/checkpoints/` folder.
-
-- Modify `main.py`: 
-  - Comment out all lines except line 97.
-- Run the modified script:
-
-```bash
-python main.py
+# Search related entities
+search.search_backward(
+    triples=triples,
+    nodes=["disease:Nonalcoholic fatty liver disease"],
+    relations=["has_disease"],
+    show_only=100
+)
 ```
 
-This will generate inference results based on the pre-trained model.
+## Directory Structure
+```
+metakg/
+├── data/
+│   ├── resource/
+│   │   ├── HMDB/
+│   │   ├── SMPDB/
+│   │   └── KEGG/
+│   └── extract_data/
+├── checkpoints/
+├── results/
+└── src/
+    ├── metakg_construction/
+    ├── metakg_analysis/
+    ├── metakg_machine_learning/
+    └── metakg_inference/
+```
 
+## Model Training Details
+
+### Training Process
+1. Data Preparation
+   - Split into train/validation/test sets
+   - Create inverse triples (optional)
+   - Generate ID mappings
+
+2. Model Training
+   - Uses SLCWATrainingLoop (Self-Adversarial Learning)
+   - Supports early stopping
+   - Optional SMILES embedding integration
+
+3. Model Evaluation
+   - Uses RankBasedEvaluator
+   - Filters existing triples
+   - Generates comprehensive metrics
+
+### Saving Artifacts
+- Model checkpoints
+- Entity embeddings
+- Relation embeddings
+- ID mappings
+- Evaluation results
+
+## Performance Optimization
+
+### Memory Management
+- Batch processing for large graphs
+- GPU memory optimization
+- Gradient checkpointing support
+
+### Training Speed
+- Negative sampling strategies
+- Early stopping implementation
+- Multi-GPU support (where available)
+
+## Troubleshooting
+
+### Common Issues
+1. **CUDA Out of Memory**
+   - Reduce batch size
+   - Enable gradient checkpointing
+   - Use CPU offloading
+
+2. **Slow Training**
+   - Check GPU utilization
+   - Optimize data loading
+   - Enable mixed precision training
+
+3. **Poor Convergence**
+   - Adjust learning rate
+   - Modify negative sampling
+   - Try different model architectures
+
+## References
+1. [MetaKG GitHub Repository](https://github.com/YuxingLu613/MetaKG)
+2. [HMDB Database](https://hmdb.ca/)
+3. [SMPDB Database](https://smpdb.ca/)
+4. [KEGG Database](https://www.genome.jp/kegg/)
+5. [PyKEEN Documentation](https://pykeen.readthedocs.io/)
