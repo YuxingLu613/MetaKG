@@ -1,4 +1,4 @@
-# MetaKG: A Knowledge Graph Framework for Metabolomics Data Integration
+# MetaKG: Metabolite-Centric Knowledge Graph Unveils Metabolite Insights Through Multimodal Representation Learning
 
 > 🧬 Bridging the gap between metabolomics databases through the power of knowledge graphs
 
