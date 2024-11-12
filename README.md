@@ -1,122 +1,314 @@
-# MetaKG
+# MetaKG: A Knowledge Graph Framework for Metabolomics Data Integration
 
 ## Overview
+MetaKG is a comprehensive knowledge graph framework that integrates metabolomics data from multiple databases (HMDB, SMPDB, KEGG) into a unified knowledge representation. It provides tools for data integration, analysis, and machine learning on metabolomics data.
 
-![MetaKG Overall Figure](https://github.com/YuxingLu613/MetaKG/blob/08afd663928899262fa06509a4aa50846ab6d83b/MetaKG%20Figure%201.png)
+![MetaKG Overview](https://github.com/YuxingLu613/MetaKG/blob/08afd663928899262fa06509a4aa50846ab6d83b/MetaKG%20Figure%201.png)
 
-## Directory Structure
+## Features
 
-The project structure is organized as follows:
+### Data Integration
+- Unified schema for metabolomics data from HMDB, SMPDB, and KEGG
+- Automated data extraction and preprocessing
+- Entity alignment across databases
+- Support for multiple data formats (XML, JSON, CSV)
 
-```
-.
-|____main.py
-|____src
-| |___metakg_construction   # construction core
-| | |____merge_database.py
-| | |____Others
-| | |____KEGG
-| | | |____get_module_info.py
-| | | |____get_enzyme_info.py
-| | | |____get_pathway_info.py
-| | | |____get_disease_info.py
-| | | |____kegg_extract.py
-| | | |____get_network_info.py
-| | | |____get_cpd_info.py
-| | | |____get_reaction_info.py
-| | |____ChEBI
-| | | |____get_chebi_resource.py
-| | |____HMDB
-| | | |____hmdb_extract.py
-| | |____PubChem
-| | | |____get_pubchem_resource.py
-| | |____SMPDB
-| | | |____smpdb_metabolite_extract.py
-| | | |____smpdb_protein_extract.py
-| | | |____smpdb_merge.py
-| |____metakg_analysis   # analysis core
-| | |____statistics
-| | | |____summary.py
-| | | |____utils.py
-| | |____visualize
-| | | |____visualize_graph.py
-| | |____search
-| | | |____search.py
-| |____metakg_machine_learning   # machine learning core
-| | |____kge_training_pipeline.py
-| | |____kge_validation.py
-| | |____data_partition.py
-| | |____kge_training.py
-| |____metakg_inference   # inference core
-| | |____predict.py
-| |____utils
-| | |____save_data.py
-| | |____convert_xml_to_json.py
-| | |____load_data.py
-|____data
-| |____kge_training
-| | |____TestSet.txt
-| | |____info.txt
-| | |____TrainingSet.txt
-| | |____ValidationSet.txt
-| |____resource
-| | |____KEGG   # KEGG resources, you can get the web-crawled data from 
-| | |____HMDB   # HMDB resources, you can get from https://hmdb.ca/downloads
-| | | |____hmdb_metabolites.xml
-| | | |____hmdb_metabolites.json
-| | |____SMPDB  # SMPDB resources, you can get from https://www.smpdb.ca/downloads
-| | | |____smpdb_metabolites
-| | | |____smpdb_proteins
-| |____extract_data
-| | |____metakg_triples.csv   # triples in MetaKG Library
-| | |____metakg_entities.csv  # entities in MetaKG Library
-| | |____KEGG
-| | | |____kegg_triples.csv
-| | | |____kegg_entities.csv
-| | | |____kegg_preprocessed
-| | |____HMDB
-| | | |____hmdb_triples.csv
-| | | |____hmdb_entities.csv
-| | |____SMPDB
-| | | |____smpdb_entities.csv
-| | | |____smpdb_triples.csv
-|____outputs
-| |____look_backward.json
-| |____statistics.json
-|____checkpoints
-|____README.md
-|____case_study
+### Analysis Tools
+- Statistical analysis of graph properties
+- Interactive graph visualization
+- Path search and network analysis
+- Enrichment analysis capabilities
+- Sankey diagram generation for pathway analysis
+
+### Machine Learning
+- Knowledge graph embedding models:
+  - TransE, TransD, TransH, TransR
+  - RotatE, ComplEx
+  - ConvE, ConvKB
+  - DistMult, SimplE
+- Model evaluation and comparison tools
+- Automated hyperparameter optimization
+- Support for custom loss functions
+
+### API Features
+- Simple interface for data extraction
+- Flexible query capabilities
+- Batch processing support
+- Extensible architecture for new databases
+
+## Installation
+
+### Hardware Requirements
+- CUDA-compatible GPU (recommended)
+- RAM: 16GB minimum, 32GB recommended 
+- Storage: 50GB free space
+
+### Software Requirements
+```bash
+# Core dependencies
+python==3.8
+pandas==2.0.3
+pykeen==1.10.2
+bioservices==1.11.2
+networkx==3.1
+torch==1.9.0
+
+# Optional dependencies
+matplotlib==3.7.1
+seaborn==0.12.2
+scikit-learn==1.2.2
+tqdm==4.65.0
 ```
 
-## Components
+### Quick Start
+1. Clone the repository:
+```bash
+git clone https://github.com/YuxingLu613/MetaKG.git
+cd MetaKG
+```
 
-### Data
+2. Download data:
+```bash
+# Download from Google Drive
+https://drive.google.com/drive/folders/1TiUtBCG4e2rJ7WIBf_NZ6En8VLbw2aoY
 
-All data can be accessed at https://drive.google.com/drive/folders/1TiUtBCG4e2rJ7WIBf_NZ6En8VLbw2aoY?usp=sharing.
+# Place files in the following structure:
+data/
+├── resource/
+│   ├── HMDB/
+│   │   └── hmdb_metabolites.xml
+│   ├── SMPDB/
+│   │   ├── smpdb_metabolites/
+│   │   └── smpdb_proteins/
+│   └── KEGG/
+└── extract_data/
+```
 
-- kge_training: Contains the training, validation, and test sets for knowledge graph embedding (KGE) training.
-- resource: Holds various biomedical databases (KEGG, HMDB, SMPDB) with different categories of data (e.g., metabolites, proteins, enzymes).
-- extract_data: Contains preprocessed data and entity/triple files for different databases, ready for KG construction.
+3. Run example:
+```bash
+python quick_start.py
+```
 
-### Source Code
+## Usage Examples
 
-- src/metakg_inference: Scripts for making predictions using the knowledge graph.
-- src/utils: Utility scripts for data conversion, loading, and saving.
-- src/metakg_analysis: Tools for analyzing the knowledge graph, including statistics computation and visualization.
-- src/metakg_machine_learning: Scripts for training, validating, and partitioning data for machine learning models on the KG.
-- src/metakg_construction: Scripts for extracting and merging data from different databases to construct the knowledge graph.
+### 1. Data Processing and Integration
+```python
+from src.metakg_construction import extract_hmdb_data, extract_smpdb_metabolite_data
 
-### Miscellaneous
+# Extract HMDB data
+hmdb_entities, hmdb_triples = extract_hmdb_data(
+    file_path="data/resource/HMDB/hmdb_metabolites.xml"
+)
 
-- checkpoints: Directory for storing model checkpoints during training.
-- case_study: Contains specific case studies or examples of how the MetaKG can be applied.
+# Extract SMPDB data
+metabolite_entities, metabolite_triples = extract_smpdb_metabolite_data(
+    metabolite_files_dir="data/resource/SMPDB/smpdb_metabolites"
+)
 
-- main.py: The main script to run the project.
+# Save processed data
+save_entities(hmdb_entities, "data/extract_data/HMDB/hmdb_entities.csv")
+save_triples(hmdb_triples, "data/extract_data/HMDB/hmdb_triples.csv")
+```
 
-## Getting Started
+### 2. Data Analysis
+```python
+from src.metakg_analysis import summary, search, visualize_graph
 
-1. Install Dependencies: Ensure all necessary Python packages are installed.
-2. Prepare Data: Place raw data files in the appropriate directories under data/resource.
-3. Run Data Extraction: Use the scripts in src/metakg_construction to extract and preprocess data.
-4. Train Models: Utilize the training pipeline in src/metakg_machine_learning to train KGE models.
-5. Analyze and Infer: Use the analysis and inference scripts to evaluate the knowledge graph and make predictions.
+# Generate comprehensive statistics
+summary.summary(
+    metakg_library_triples, 
+    show_bar_graph=True, 
+    save_result=True,
+    topk=20
+)
+
+# Search for disease-related pathways
+results = search.search_backward(
+    triples=triples,
+    nodes=["disease:Nonalcoholic fatty liver disease"],
+    relations=["has_disease"],
+    show_only=100
+)
+
+# Visualize subgraph
+visualize_graph(
+    triples=results,
+    save_path="outputs/disease_subgraph.html"
+)
+```
+
+### 3. Model Training
+```python
+from src.metakg_machine_learning import kge_training_pipeline, data_partition
+
+# Prepare data
+train_path, valid_path, test_path = data_partition.split_data(
+    triples=metakg_library_triples,
+    info_path="data/kge_training/info.txt"
+)
+
+# Train model
+results = kge_training_pipeline.trainging_pipeline(
+    model_name="RotatE",
+    loss="marginranking",
+    embedding_dim=128,
+    lr=1.0e-3,
+    num_epochs=2000,
+    batch_size=16384
+)
+```
+
+### 4. Link Prediction
+```python
+from src.metakg_inference import predict
+
+# Predict diseases related to a metabolite
+predictions = predict(
+    model_name="RotatE",
+    head="hmdb_id:HMDB0000001",
+    relation="has_disease",
+    tail=None,
+    show_num=3
+)
+
+# Predict metabolites related to a disease
+predictions = predict(
+    model_name="RotatE",
+    head=None,
+    relation="has_disease",
+    tail="disease:Diabetes",
+    show_num=3
+)
+```
+
+## Advanced Features
+
+### Custom Model Training
+```python
+# Example of custom training configuration
+config = {
+    "model": "RotatE",
+    "loss": "marginranking",
+    "embedding_dim": 128,
+    "batch_size": 16384,
+    "learning_rate": 1e-3,
+    "num_epochs": 2000,
+    "negative_sample_count": 50,
+    "regularization_weight": 1e-5
+}
+
+results = kge_training_pipeline.training_pipeline(**config)
+```
+
+### Visualization Options
+```python
+# Generate Sankey diagram
+from case_study.sankey_plot import create_sankey_plot
+
+create_sankey_plot(
+    triples=metakg_library_triples,
+    select_relations=['has_pathway', 'has_disease'],
+    hmdb_list=hmdb_list,
+    num_relations_to_select=10
+)
+
+# Generate enrichment plot
+from case_study.MESA_enrichment_plot import create_mesa_plot
+
+create_mesa_plot(
+    triples=metakg_library_triples,
+    hmdb_abundance=hmdb_abundance,
+    select_relations=select_relations,
+    num_relations_to_select=10
+)
+```
+
+## Project Structure
+```
+metakg/
+├── src/                    # Source code
+│   ├── metakg_construction/  # Data extraction & integration
+│   │   ├── HMDB/            # HMDB data processing
+│   │   ├── SMPDB/           # SMPDB data processing
+│   │   └── KEGG/            # KEGG data processing
+│   ├── metakg_analysis/      # Analysis tools
+│   │   ├── statistics/       # Statistical analysis
+│   │   ├── search/          # Path search
+│   │   └── visualize/       # Visualization tools
+│   ├── metakg_machine_learning/  # ML models
+│   │   ├── data_partition/    # Data splitting
+│   │   └── kge_training/      # Model training
+│   └── metakg_inference/    # Prediction tools
+├── data/                   # Data storage
+│   ├── resource/            # Raw data
+│   └── extract_data/        # Processed data
+├── case_study/            # Example notebooks
+│   ├── sankey_plot.ipynb    # Sankey diagram examples
+│   └── MESA_enrichment_plot.ipynb  # Enrichment analysis
+└── checkpoints/           # Model checkpoints
+```
+
+## Performance Optimization
+
+### Memory Management
+- Batch processing for large graphs
+- GPU memory optimization
+- Gradient checkpointing support
+
+### Training Speed
+- Negative sampling strategies
+- Early stopping implementation
+- Multi-GPU support
+
+### Common Issues and Solutions
+1. **CUDA Out of Memory**
+   - Reduce batch size
+   - Enable gradient checkpointing
+   - Use CPU offloading
+
+2. **Slow Training**
+   - Check GPU utilization
+   - Optimize data loading
+   - Enable mixed precision training
+
+3. **Poor Convergence**
+   - Adjust learning rate
+   - Modify negative sampling
+   - Try different model architectures
+
+## Contributing
+We welcome contributions! Please follow these steps:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Submit a pull request
+
+## Citation
+If you use MetaKG in your research, please cite:
+```bibtex
+@article{metakg2024,
+  title={TO BE ADDED},
+  author={Lu, Yuxing},
+  journal={TO BE DECIDED},
+  year={2024},
+  volume={1},
+  number={1},
+  pages={1-10}
+}
+```
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+- **Author**: Yuxing Lu
+- **Email**: [yxlu613@gmail.com](mailto:yxlu613@gmail.com)
+- **GitHub Issues**: For bug reports and feature requests
+- **Discussion Forum**: For general questions and community support
+
+## Acknowledgments
+- HMDB database
+- SMPDB database
+- KEGG database
+- PyKEEN development team
