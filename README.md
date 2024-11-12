@@ -1,47 +1,59 @@
 # MetaKG: A Knowledge Graph Framework for Metabolomics Data Integration
 
+> 🧬 Bridging the gap between metabolomics databases through the power of knowledge graphs
+
 ## Overview
+
 MetaKG is a comprehensive knowledge graph framework that integrates metabolomics data from multiple databases (HMDB, SMPDB, KEGG) into a unified knowledge representation. It provides tools for data integration, analysis, and machine learning on metabolomics data.
+
+## Why MetaKG?
+- 🎯 **Unified Access**: Query across HMDB, SMPDB, and KEGG with a single interface
+- 🔍 **Smart Analysis**: From basic statistics to advanced machine learning
+- 🚀 **Production Ready**: Battle-tested with large-scale metabolomics data
+- 🛠️ **Extensible**: Easy to add new databases and features
 
 ![MetaKG Overview](https://github.com/YuxingLu613/MetaKG/blob/08afd663928899262fa06509a4aa50846ab6d83b/MetaKG%20Figure%201.png)
 
-## Features
+## Quick Links
+- [Installation](#installation)
+- [Usage Examples](#️-usage-examples)
+- [Documentation](#project-structure)
+- [Contributing](#-contributing)
 
-### Data Integration
-- Unified schema for metabolomics data from HMDB, SMPDB, and KEGG
+## ✨ Key Features
+
+### 🔄 Data Integration
+- Unified schema across HMDB, SMPDB, and KEGG
 - Automated data extraction and preprocessing
-- Entity alignment across databases
-- Support for multiple data formats (XML, JSON, CSV)
+- Cross-database entity alignment
+- Multi-format support (XML, JSON, CSV)
 
-### Analysis Tools
-- Statistical analysis of graph properties
-- Interactive graph visualization
-- Path search and network analysis
-- Enrichment analysis capabilities
-- Sankey diagram generation for pathway analysis
+### 📊 Analysis Tools
+- Statistical analysis and visualization
+- Network analysis and path search
+- Enrichment analysis
+- Sankey diagrams for pathways
 
-### Machine Learning
-- Knowledge graph embedding models:
-  - TransE, TransD, TransH, TransR
-  - RotatE, ComplEx
-  - ConvE, ConvKB
-  - DistMult, SimplE
-- Model evaluation and comparison tools
-- Automated hyperparameter optimization
-- Support for custom loss functions
+### 🤖 Machine Learning
+- KG embedding models (TransE/D/H/R, RotatE, ComplEx, ConvE, etc.)
+- Model evaluation suite
+- Hyperparameter optimization
+- Custom loss functions
 
-### API Features
-- Simple interface for data extraction
-- Flexible query capabilities
-- Batch processing support
-- Extensible architecture for new databases
+### 🔌 API
+- Simple data extraction interface
+- Flexible queries
+- Batch processing
+- Extensible design
+
+---
 
 ## Installation
 
-### Hardware Requirements
-- CUDA-compatible GPU (recommended)
-- RAM: 16GB minimum, 32GB recommended 
-- Storage: 50GB free space
+### System Requirements
+- 🎮 CUDA-compatible GPU (recommended)
+- 💾 RAM: 16GB minimum, 32GB recommended 
+- 💽 Storage: 50GB free space
 
 ### Software Requirements
 ```bash
@@ -89,7 +101,7 @@ data/
 python quick_start.py
 ```
 
-## Usage Examples
+## 🛠️ Usage Examples
 
 ### 1. Data Processing and Integration
 ```python
@@ -248,23 +260,23 @@ metakg/
 └── checkpoints/           # Model checkpoints
 ```
 
-## Performance Optimization
+## 🔧 Performance Tips & Tricks
 
-### Memory Management
-- Batch processing for large graphs
-- GPU memory optimization
-- Gradient checkpointing support
+### Memory Optimization
+- Smart batch processing for large graphs
+- GPU memory management strategies
+- Advanced gradient checkpointing
 
-### Training Speed
-- Negative sampling strategies
-- Early stopping implementation
-- Multi-GPU support
+### Speed Optimization
+- Efficient negative sampling
+- Intelligent early stopping
+- Distributed training across GPUs
 
 ### Common Issues and Solutions
 1. **CUDA Out of Memory**
-   - Reduce batch size
+   - Reduce your batch size
    - Enable gradient checkpointing
-   - Use CPU offloading
+   - Offload to CPU when needed
 
 2. **Slow Training**
    - Check GPU utilization
@@ -276,13 +288,12 @@ metakg/
    - Modify negative sampling
    - Try different model architectures
 
-## Contributing
-We welcome contributions! Please follow these steps:
+## 🤝 Contributing
+Got ideas? We'd love your help! Here's how:
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Submit a pull request
+2. Create your feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## Citation
 If you use MetaKG in your research, please cite:
