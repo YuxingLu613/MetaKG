@@ -11,6 +11,8 @@
 
 MetaKG is a comprehensive knowledge graph framework that integrates metabolomics data from multiple databases (HMDB, SMPDB, KEGG) into a unified knowledge representation. It provides tools for data integration, analysis, and machine learning on metabolomics data.
 
+Demonstration Website: (https://www.metakg.xyz)[https://www.metakg.xyz]
+
 ## Why MetaKG?
 - 🎯 **Unified Access**: Query across HMDB, SMPDB, and KEGG with a single interface
 - 🔍 **Smart Analysis**: From basic statistics to advanced machine learning
