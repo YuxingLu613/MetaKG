@@ -19,7 +19,7 @@ Demonstration Website: http://www.metakg.xyz
 - 🚀 **Production Ready**: Battle-tested with large-scale metabolomics data
 - 🛠️ **Extensible**: Easy to add new databases and features
 
-![MetaKG Overview](http://cdn.metakg.xyz/MetaKG%20Figure%201.png)
+![MetaKG Overview](http://cdn.metakg.xyz/MetaKG-overview.jpg)
 
 ## Quick Links
 - [Installation](#installation)
