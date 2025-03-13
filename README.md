@@ -321,7 +321,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 - **Author**: Yuxing Lu
-- **Email**: [yxlu0613@gmail.com](mailto:yxlu613@gmail.com)
+- **Email**: [yxlu0613@gmail.com](mailto:yxlu0613@gmail.com)
 - **GitHub Issues**: For bug reports and feature requests
 - **Discussion Forum**: For general questions and community support
 
